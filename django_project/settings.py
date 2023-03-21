@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from environs import Env
-import dj_database_url
 
 env = Env()
 env.read_env()
@@ -125,11 +124,14 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
+import dj_database_url
+
 DATABASES = {
-        'default': dj_database_url.config(
-            env.str('DATABASE_URL'),
-            conn_max_age=600
-        )
+    'default': dj_database_url.parse(
+        env.str('DATABASE_URL'),
+        conn_max_age=600
+    )
 }
 
 
